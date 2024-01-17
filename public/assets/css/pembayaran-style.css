@@ -1,0 +1,99 @@
+footer {
+    clear: both;
+}
+
+.card {
+    /* Pastikan ukuran card tetap */
+    height: 100%;
+}
+
+.alamat {
+    border: 1px solid black;
+    /* Menambahkan border pada formulir */
+    padding: 3px;
+    /* Sesuaikan lebar formulir sesuai kebutuhan */
+    margin-right: 20px;
+    /* Membuat formulir berada di tengah halaman */
+}
+
+.metode {
+    padding: 15px;
+    margin-top: 20px;
+    margin-right: 20px;
+    width: 48%;
+}
+
+.pengiriman {
+    border: 1px solid black;
+    /* Menambahkan border pada formulir */
+    padding: 15px;
+    width: 98%;
+}
+
+.pembayaran {
+    border: 1px solid black;
+    /* Menambahkan border pada formulir */
+    padding: 15px;
+    width: 98%;
+    margin-top: 20px;
+}
+
+.konfirmasi {
+    border: 1px solid black;
+    /* Menambahkan border pada formulir */
+    padding: 15px;
+    margin-top: 20px;
+    width: 48%;
+}
+
+.detail {
+    border: 1px solid black;
+    /* Menambahkan border pada formulir */
+    padding: 15px;
+    margin-top: 20px;
+    width: 98%;
+}
+
+.submit {
+    margin-left: 2px;
+    width: 98%;
+}
+
+.gambar {
+    width: 25%;
+}
+
+.ringkasan {
+    border: 1px solid black;
+    /* Menambahkan border pada formulir */
+    padding: 15px;
+    margin-top: 20px;
+    width: 98%;
+}
+
+.product-image {
+    /* Menyesuaikan ukuran gambar */
+    max-height: 200px;
+    width: 100%;
+    object-fit: contain;
+    /* Menggunakan contain untuk menjaga gambar tidak terpotong */
+}
+
+#navbarHead {
+    background-color: lightskyblue;
+}
+
+#carouselExampleIndicators {
+    max-width: 100%;
+    /* Set your preferred maximum width */
+    margin: auto;
+    /* Center the carousel */
+}
+
+.custom-carousel-image {
+    width: 100%;
+    /* Set your preferred width */
+    height: auto;
+    /* Maintain the aspect ratio */
+    /* Additional styles if needed */
+}
