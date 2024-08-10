@@ -19,10 +19,21 @@ jobs:
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'
+          php-version: '8.1'  # Ganti dengan versi PHP yang sesuai
 
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-interaction --no-scripts --no-progress
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install npm dependencies
+        run: npm install
+
+      - name: Run PHP lint
+        run: find . -type f -name "*.php" -exec php -l {} \;
 
       - name: Run Laravel migrations
         run: php artisan migrate --env=testing
@@ -49,6 +60,4 @@ jobs:
       - name: Deploy to server via SSH
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-        run: |
-          ssh -o StrictHostKeyChecking=no user@${{ env.SSH_HOST }} "cd /path/to/your/project && git pull && php artisan migrate --force"
+          SSH_HOST: ${{ secrets.SSH_HOST
