@@ -72,4 +72,13 @@ jobs:
 
       - name: Deploy to server via SSH
         env:
-          SSH_PRIVATE_K
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+        run: |
+          ssh -o StrictHostKeyChecking=no -i <(echo "${SSH_PRIVATE_KEY}") ${SSH_USER}@${SSH_HOST} << 'EOF'
+            cd /path/to/your/project
+            git pull origin main
+            composer install --prefer-dist --no-interaction --no-scripts --no-progress
+            php artisan migrate --force
+          EOF
