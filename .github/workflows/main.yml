@@ -60,4 +60,6 @@ jobs:
       - name: Deploy to server via SSH
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          SSH_HOST: ${{ secrets.SSH_HOST
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+        run: |
+          ssh -o StrictHostKeyChecking=no user@${{ env.SSH_HOST }} "cd /path/to/your/project && git pull && php artisan migrate --force"
