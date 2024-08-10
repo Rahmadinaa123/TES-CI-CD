@@ -16,7 +16,7 @@ jobs:
       mysql:
         image: mysql:5.7
         env:
-          MYSQL_ROOT_PASSWORD: 
+          MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: db_apotik
         ports:
           - 3306:3306
@@ -45,4 +45,4 @@ jobs:
           DB_PORT: 3306
           DB_DATABASE: db_apotik
           DB_USERNAME: root
-          DB_PASSWORD: 
+          DB_PASSWORD: root
