@@ -82,3 +82,4 @@ jobs:
             composer install --prefer-dist --no-interaction --no-scripts --no-progress
             php artisan migrate --force
           EOF
+
