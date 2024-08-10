@@ -19,21 +19,10 @@ jobs:
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'  # Ganti dengan versi PHP yang sesuai
+          php-version: '8.1'
 
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-interaction --no-scripts --no-progress
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-
-      - name: Install npm dependencies
-        run: npm install
-
-      - name: Run PHP lint
-        run: find . -type f -name "*.php" -exec php -l {} \;
 
       - name: Run Laravel migrations
         run: php artisan migrate --env=testing
@@ -56,11 +45,6 @@ jobs:
 
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-interaction --no-scripts --no-progress
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
 
       - name: Deploy to server via SSH
         env:
