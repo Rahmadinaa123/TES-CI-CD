@@ -16,13 +16,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
         with:
-          node-version: '14'
+          php-version: '8.1'  # Ganti dengan versi PHP yang sesuai dengan aplikasi Anda
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          composer install --prefer-dist --no-interaction --optimize-autoloader
+
+      - name: Set up environment file
+        run: cp .env.example .env
+
+      - name: Generate application key
+        run: php artisan key:generate
 
       - name: Run tests
-        run: npm test
+        run: php artisan test
