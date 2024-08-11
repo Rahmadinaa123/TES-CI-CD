@@ -60,7 +60,7 @@
             <li class="nav-item active">
                 <a class="nav-link" href="{{ route('admin.user') }}">
                     <i class="fas fa-fw fa-user"></i>
-                    <span>User</span></a>
+                    <span>User name</span></a>
             </li>
 
             <li class="nav-item">
