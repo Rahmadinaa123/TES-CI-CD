@@ -66,7 +66,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.dataObat') }}">
                     <i class="fas fa-fw fa-user"></i>
-                    <span>Data Obat</span></a>
+                    <span>Data Obat obatan</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.dataApoteker') }}">
