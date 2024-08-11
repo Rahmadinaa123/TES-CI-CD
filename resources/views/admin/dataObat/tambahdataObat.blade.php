@@ -86,7 +86,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.dataPembayaran') }}">
                     <i class="fas fa-fw fa-user"></i>
-                    <span>Data Pembayaran</span></a>
+                    <span>Data Pembayaran apotek</span></a>
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
