@@ -45,7 +45,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.home') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Beranda</span></a>
+                    <span>Berandaa</span></a>
             </li>
 
             <!-- Divider -->
