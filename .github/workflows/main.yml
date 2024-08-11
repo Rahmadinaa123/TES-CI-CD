@@ -34,6 +34,23 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-interaction --no-scripts --no-progress
 
+      - name: Configure environment file
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+          php artisan config:cache
+        env:
+          DB_CONNECTION: mysql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_DATABASE: test_db
+          DB_USERNAME: root
+          DB_PASSWORD: root
+
+      - name: Check existing tables
+        run: |
+          mysql -h 127.0.0.1 -u root -proot -e "USE test_db; SHOW TABLES;"
+
       - name: Run Laravel migrations
         run: php artisan migrate --env=testing
         env:
@@ -45,7 +62,7 @@ jobs:
           DB_PASSWORD: root
 
       - name: Run Laravel tests
-        run: php artisan migrate:refresh --env=testing
+        run: php artisan test --env=testing
         env:
           DB_CONNECTION: mysql
           DB_HOST: 127.0.0.1
@@ -74,12 +91,19 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           SSH_HOST: ${{ secrets.SSH_HOST }}
-          SSH_USER: ${{ secrets.SSH_USER }}
         run: |
-          ssh -o StrictHostKeyChecking=no -i <(echo "${SSH_PRIVATE_KEY}") ${SSH_USER}@${SSH_HOST} << 'EOF'
+          # Ensure SSH key is added
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          
+          # Connect to the server and perform deployment tasks
+          ssh -o StrictHostKeyChecking=no user@$SSH_HOST << 'EOF'
             cd /path/to/your/project
             git pull origin main
-            composer install --prefer-dist --no-interaction --no-scripts --no-progress
+            composer install --no-dev --optimize-autoloader
             php artisan migrate --force
+            php artisan cache:clear
+            php artisan config:cache
+            php artisan route:cache
           EOF
-
