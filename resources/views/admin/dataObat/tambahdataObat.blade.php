@@ -76,7 +76,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.dataPemesanan') }}">
                     <i class="fas fa-fw fa-user"></i>
-                    <span>Data Pemesanan</span></a>
+                    <span>Data Pemesanan obat</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.dataPengiriman') }}">
