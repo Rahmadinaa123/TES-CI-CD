@@ -85,10 +85,18 @@ jobs:
       - name: Install lftp
         run: sudo apt-get install -y lftp
 
+      - name: Print environment variables for debugging
+        run: |
+          echo "FTP_SERVER: ftp.siforta.my.id
+          echo "FTP_USERNAME: sifortam
+        env:
+          FTP_SERVER: ftp.siforta.my.id
+          FTP_USERNAME: sifortam
+
       - name: Deploy to server via FTP
         env:
-          FTP_SERVER: ${{ secrets.ftp.siforta.my.id }} # URL FTP server
-          FTP_USERNAME: ${{ secrets.sifortam }} # Username FTP
+          FTP_SERVER: ftp.siforta.my.id}
+          FTP_USERNAME: sifortam
         run: |
           lftp -f "
           open $FTP_SERVER
