@@ -96,7 +96,8 @@ jobs:
       - name: Deploy to server via FTP
         env:
           FTP_SERVER: ftp.siforta.my.id
-          FTP_USERNAME: sifortam
+          FTP_USERNAME: siforta@siforta.my.id
+          FTP_PASSWORD: Siforta12345#
         run: |
           lftp -f "
           open $FTP_SERVER
