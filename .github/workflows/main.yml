@@ -88,8 +88,8 @@ jobs:
 
       - name: Deploy to server via SSH
         env:
-          FTP_SERVER: ${{ secrets.ftp.siforta.my.id }}
-          FTP_USERNAME: ${{ secrets.sifortam }}
+          FTP_SERVER: ${{ secrets.ftp.siforta.my.id }} #ftp server
+          FTP_USERNAME: ${{ secrets.sifortam }} #username
         run: |
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
