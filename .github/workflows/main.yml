@@ -44,7 +44,7 @@ jobs:
           php artisan config:cache
         env:
           DB_CONNECTION: mysql
-          DB_HOST: 127.0.0.1       # Placeholder: Ganti dengan host database Anda
+          DB_HOST: 127.0.0.1
           DB_PORT: 3306
           DB_DATABASE: test_db
           DB_USERNAME: root
@@ -53,11 +53,12 @@ jobs:
       - name: Check existing tables
         run: |
           mysql -h 127.0.0.1 -u root -proot -e "USE test_db; SHOW TABLES;"
+
       - name: Run Laravel migrations
         run: php artisan migrate --env=testing
         env:
           DB_CONNECTION: mysql
-          DB_HOST: 127.0.0.1       # Placeholder: Ganti dengan host database Anda
+          DB_HOST: 127.0.0.1
           DB_PORT: 3306
           DB_DATABASE: test_db
           DB_USERNAME: root
@@ -67,7 +68,7 @@ jobs:
         run: php artisan test --env=testing
         env:
           DB_CONNECTION: mysql
-          DB_HOST: 127.0.0.1       # Placeholder: Ganti dengan host database Anda
+          DB_HOST: 127.0.0.1
           DB_PORT: 3306
           DB_DATABASE: test_db
           DB_USERNAME: root
@@ -81,20 +82,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.1'
+      - name: Install lftp
+        run: sudo apt-get install -y lftp
 
-      - name: Install Composer dependencies
-        run: composer install --prefer-dist --no-interaction --no-scripts --no-progress
-
-      - name: Deploy to server via SSH
+      - name: Deploy to server via FTP
         env:
-          FTP_SERVER: ${{ secrets.ftp.siforta.my.id }} #ftp server
-          FTP_USERNAME: ${{ secrets.sifortam }} #username
+          FTP_SERVER: ${{ secrets.ftp.siforta.my.id }} # URL FTP server
+          FTP_USERNAME: ${{ secrets.sifortam }} # Username FTP
         run: |
-         lftp -f "
+          lftp -f "
           open $FTP_SERVER
           user $FTP_USERNAME
           mirror --reverse --delete --verbose ./ /path/on/ftp/server
