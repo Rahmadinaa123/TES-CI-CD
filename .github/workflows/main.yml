@@ -97,7 +97,7 @@ jobs:
         run: |
           nc -zv ftp.siforta.my.id 21
 
-      - name: Deploy to server via FTP
+      - name: Deploy to server via FTP #tess
         run: |
           lftp -f "
           set ftp:ssl-allow no
