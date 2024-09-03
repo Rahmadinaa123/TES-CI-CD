@@ -91,16 +91,9 @@ jobs:
           FTP_SERVER: ${{ secrets.ftp.siforta.my.id }} #ftp server
           FTP_USERNAME: ${{ secrets.sifortam }} #username
         run: |
-          mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          
-          ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST << 'EOF'
-            cd /path/to/your/project      # Placeholder: Ganti dengan path sebenarnya ke direktori proyek di server
-            git pull origin main
-            composer install --no-dev --optimize-autoloader
-            php artisan migrate --force
-            php artisan cache:clear
-            php artisan config:cache
-            php artisan route:cache
-          EOF
+         lftp -f "
+          open $FTP_SERVER
+          user $FTP_USERNAME
+          mirror --reverse --delete --verbose ./ /path/on/ftp/server
+          bye
+          "
