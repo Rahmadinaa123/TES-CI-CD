@@ -97,13 +97,18 @@ jobs:
         run: |
           nc -zv ftp.siforta.my.id 21
 
-      - name: Deploy to server via FTP #tess
+      - name: Deploy to server via FTP
         run: |
           lftp -f "
           set ftp:ssl-allow no
-          open $FTP_SERVER
-          user $FTP_USERNAME $FTP_PASSWORD
-          mirror --reverse --delete --verbose ./ /path/on/ftp/server
+          open ${{ secrets.FTP_SERVER }}
+          user ${{ secrets.FTP_USERNAME }} ${{ secrets.FTP_PASSWORD }}
+          
+          # Cek apakah direktori tujuan ada, jika tidak, buat direktori tersebut
+          mkdir -p /path/on/ftp/server
+          
+          # Lakukan mirror file dari local ke server
+          mirror --reverse --delete --verbose=2 --parallel=5 --only-newer ./ /path/on/ftp/server
           bye
           "
         env:
