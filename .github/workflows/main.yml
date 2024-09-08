@@ -101,8 +101,8 @@ jobs:
         run: |
           lftp -f "
           set ftp:ssl-allow no
-          open ${{ secrets.FTP_SERVER }}
-          user ${{ secrets.FTP_USERNAME }} ${{ secrets.FTP_PASSWORD }}
+          open $FTP_SERVER
+          user $FTP_USERNAME $FTP_PASSWORD
           
           # Cek apakah direktori tujuan ada, jika tidak, buat direktori tersebut
           mkdir -p /path/on/ftp/server
