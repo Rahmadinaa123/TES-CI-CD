@@ -104,11 +104,11 @@ jobs:
           open $FTP_SERVER
           user $FTP_USERNAME $FTP_PASSWORD
           
-          # Cek apakah direktori tujuan ada, jika tidak, buat direktori tersebut
-          mkdir -p /path/on/ftp/server
+          # Pastikan direktori tujuan dibuat jika belum ada
+          mkdir -p /path/on/ftp/server || true
           
-          # Lakukan mirror file dari local ke server
-          mirror --reverse --delete --verbose=2 --parallel=5 --only-newer ./ /path/on/ftp/server
+          # Lakukan mirror dari source ke server
+          mirror --reverse --delete --verbose=2 ./ /path/on/ftp/server
           bye
           "
         env:
