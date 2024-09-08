@@ -46,9 +46,9 @@ jobs:
           DB_CONNECTION: mysql
           DB_HOST: 127.0.0.1
           DB_PORT: 3306
-          DB_DATABASE: sifortam_lara948
-          DB_USERNAME: sifortam_lara948
-          DB_PASSWORD: Sifortam12345#
+          DB_DATABASE: test_db
+          DB_USERNAME: root
+          DB_PASSWORD: root
 
       - name: Check existing tables
         run: |
@@ -60,9 +60,9 @@ jobs:
           DB_CONNECTION: mysql
           DB_HOST: 127.0.0.1
           DB_PORT: 3306
-          DB_DATABASE: sifortam_lara948
-          DB_USERNAME: sifortam_lara948
-          DB_PASSWORD: Sifortam12345#
+          DB_DATABASE: test_db
+          DB_USERNAME: root
+          DB_PASSWORD: root
 
       - name: Run Laravel tests
         run: php artisan test --env=testing
@@ -70,9 +70,9 @@ jobs:
           DB_CONNECTION: mysql
           DB_HOST: 127.0.0.1
           DB_PORT: 3306
-          DB_DATABASE: sifortam_lara948
-          DB_USERNAME: sifortam_lara948
-          DB_PASSWORD: Sifortam12345#
+          DB_DATABASE: test_db
+          DB_USERNAME: root
+          DB_PASSWORD: root
 
   deploy:
     runs-on: ubuntu-latest
