@@ -112,21 +112,6 @@ jobs:
           FTP_USERNAME: sifortam2@siforta.my.id
           FTP_PASSWORD: Siforta12345#
 
-      - name: Create directories on server using lftp (debugging)
-        run: |
-          set -x
-          time lftp -d -e "
-          set ftp:ssl-allow no;
-          open ftp.siforta.my.id;
-          user sifortam2@siforta.my.id Siforta12345#;
-          mkdir -p /siforta;
-          bye
-          "
-        env:
-          FTP_SERVER: ftp.siforta.my.id
-          FTP_USERNAME: sifortam2@siforta.my.id
-          FTP_PASSWORD: Siforta12345#
-
       - name: Deploy to server via FTP (debugging)
         run: |
           set -x
