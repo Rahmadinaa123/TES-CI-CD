@@ -106,7 +106,7 @@ jobs:
           set ftp:ssl-allow no;
           open $FTP_SERVER;
           user $FTP_USERNAME $FTP_PASSWORD;
-          mirror -R /home/sifortam/siforta.my.id/siforta;
+          mirror -R /home/sifortam/public_html;
           bye
           "
         env:
