@@ -97,16 +97,31 @@ jobs:
         run: |
           nc -zv ftp.siforta.my.id 21
 
+      - name: Create directories on server
+        run: |
+          lftp -e "
+          open ftp.siforta.my.id;
+          user siforta@siforta.my.id Siforta12345#;
+          mkdir -p /home/sifortam/siforta.my.id/siforta;
+          bye
+          "
+
+      - name: Create siforta directory
+        run: mkdir -p ./siforta
+
       - name: List current directory
         run: ls -la
+
+      - name: List siforta directory
+        run: ls -la ./siforta
 
       - name: Deploy to server via FTP
         run: |
           lftp -e "
           set ftp:ssl-allow no;
-          open $FTP_SERVER;
-          user $FTP_USERNAME $FTP_PASSWORD;
-          mirror -R home/sifortam;
+          open ftp.siforta.my.id;
+          user siforta@siforta.my.id Siforta12345#;
+          mirror -R ./siforta /home/sifortam/siforta.my.id/siforta;
           bye
           "
         env:
