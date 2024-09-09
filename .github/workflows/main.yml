@@ -95,6 +95,24 @@ jobs:
       - name: Test FTP Connection
         run: |
           nc -zv ftp.siforta.my.id 21
+
+          jobs:
+  test-connection:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install networking tools
+        run: sudo apt-get install -y iputils-ping traceroute lftp
+
+      - name: Ping FTP Server
+        run: ping -c 4 ftp.siforta.my.id
+
+      - name: Traceroute to FTP Server
+        run: traceroute ftp.siforta.my.id
+
+      - name: Test FTP connection with lftp
+        run: |
+          lftp -e "ls; bye" -u siforta@siforta.my.id,Siforta12345 ftp.siforta.my.id
+
       - name: Deploy to server via FTP #tess
         run: |
           lftp -f "
