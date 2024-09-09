@@ -95,17 +95,17 @@ jobs:
 
       - name: Test FTP Connection
         run: |
-          nc -zv ftp.siforta.my.id 21
-
-      - name: Ping FTP Server
-        run: ping -c 4 ftp.siforta.my.id 21
-
-      - name: Traceroute to FTP Server
-        run: traceroute ftp.siforta.my.id 21
+          nc -zv $FTP_SERVER 21
+        env:
+          FTP_SERVER: ftp.siforta.my.id
 
       - name: Test FTP connection with lftp
         run: |
-          lftp -e "ls; bye" -u siforta@siforta.my.id,Siforta12345 ftp.siforta.my.id
+          lftp -e "ls; bye" -u $FTP_USERNAME,$FTP_PASSWORD $FTP_SERVER
+        env:
+          FTP_SERVER: ftp.siforta.my.id
+          FTP_USERNAME: siforta@siforta.my.id
+          FTP_PASSWORD: Siforta12345
 
       - name: Deploy to server via FTP
         run: |
