@@ -100,9 +100,6 @@ jobs:
       - name: List current directory
         run: ls -la
 
-      - name: List siforta directory
-        run: ls -la ./siforta
-
       - name: Deploy to server via FTP
         run: |
           lftp -e "
