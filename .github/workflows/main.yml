@@ -53,6 +53,7 @@ jobs:
       - name: Check existing tables
         run: |
           mysql -h 127.0.0.1 -u root -proot -e "USE test_db; SHOW TABLES;"
+
       - name: Run Laravel migrations
         run: php artisan migrate --env=testing
         env:
@@ -86,8 +87,8 @@ jobs:
 
       - name: Print environment variables for debugging
         run: |
-          echo "FTP_SERVER: ftp.siforta.my.id"
-          echo "FTP_USERNAME: siforta@siforta.my.id"
+          echo "FTP_SERVER: $FTP_SERVER"
+          echo "FTP_USERNAME: $FTP_USERNAME"
         env:
           FTP_SERVER: ftp.siforta.my.id
           FTP_USERNAME: siforta@siforta.my.id
@@ -95,13 +96,6 @@ jobs:
       - name: Test FTP Connection
         run: |
           nc -zv ftp.siforta.my.id 21
-
-          jobs:
-  test-connection:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Install networking tools
-        run: sudo apt-get install -y iputils-ping traceroute lftp
 
       - name: Ping FTP Server
         run: ping -c 4 ftp.siforta.my.id
@@ -113,9 +107,7 @@ jobs:
         run: |
           lftp -e "ls; bye" -u siforta@siforta.my.id,Siforta12345 ftp.siforta.my.id
 
-          lftp -u siforta@siforta.my.id,Siforta12345 ftp.siforta.my.id
-
-      - name: Deploy to server via FTP #tess
+      - name: Deploy to server via FTP
         run: |
           lftp -f "
           set ftp:ssl-allow no
