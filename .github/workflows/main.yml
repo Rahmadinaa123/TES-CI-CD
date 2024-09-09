@@ -106,7 +106,7 @@ jobs:
         env:
           FTP_SERVER: ftp.siforta.my.id
           FTP_USERNAME: siforta@siforta.my.id
-          FTP_PASSWORD: Siforta12345
+          FTP_PASSWORD: Siforta12345#
 
       - name: Deploy to server via FTP
         run: |
