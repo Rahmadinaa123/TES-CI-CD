@@ -101,7 +101,7 @@ jobs:
 
       - name: Test FTP connection with lftp
         run: |
-          lftp -e "ls; bye" -u $FTP_USERNAME,$FTP_PASSWORD $FTP_SERVER
+          lftp -e "set ftp:ssl-allow no; ls; bye" -u $FTP_USERNAME,$FTP_PASSWORD $FTP_SERVER
         env:
           FTP_SERVER: ftp.siforta.my.id
           FTP_USERNAME: siforta@siforta.my.id
