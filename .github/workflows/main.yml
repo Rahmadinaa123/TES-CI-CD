@@ -119,7 +119,7 @@ jobs:
           set ftp:ssl-allow no;
           open ftp.siforta.my.id;
           user sifortam2@siforta.my.id Siforta12345#;
-          mirror -R siforta;
+          mirror -R ./siforta;
           bye
           "
         env:
