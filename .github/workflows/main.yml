@@ -53,7 +53,6 @@ jobs:
       - name: Check existing tables
         run: |
           mysql -h 127.0.0.1 -u root -proot -e "USE test_db; SHOW TABLES;"
-
       - name: Run Laravel migrations
         run: php artisan migrate --env=testing
         env:
@@ -87,8 +86,8 @@ jobs:
 
       - name: Print environment variables for debugging
         run: |
-          echo "FTP_SERVER: $FTP_SERVER"
-          echo "FTP_USERNAME: $FTP_USERNAME"
+          echo "FTP_SERVER: ftp.siforta.my.id"
+          echo "FTP_USERNAME: sifortam2@siforta.my.id
         env:
           FTP_SERVER: ftp.siforta.my.id
           FTP_USERNAME: sifortam2@siforta.my.id
@@ -96,33 +95,16 @@ jobs:
       - name: Test FTP Connection
         run: |
           nc -zv ftp.siforta.my.id 21
-
-      - name: Check if directory exists on server
+      - name: Deploy to server via FTP #tess
         run: |
-          set -x
-          lftp -d -e "
-          set ftp:ssl-allow no;
-          open ftp.siforta.my.id;
-          user sifortam2@siforta.my.id Siforta12345#;
-          cd /siforta || echo 'Directory /siforta does not exist';
+          lftp -f "
+          set ftp:ssl-allow no
+          open $FTP_SERVER
+          user $FTP_USERNAME $FTP_PASSWORD
+          mirror --reverse --delete --verbose ./ /path/on/ftp/server
           bye
           "
         env:
           FTP_SERVER: ftp.siforta.my.id
           FTP_USERNAME: sifortam2@siforta.my.id
-          FTP_PASSWORD: Siforta12345#
-
-      - name: Deploy to server via FTP (debugging)
-        run: |
-          set -x
-          time lftp -d -e "
-          set ftp:ssl-allow no;
-          open ftp.siforta.my.id;
-          user sifortam2@siforta.my.id Siforta12345#;
-          mirror -R ./siforta;
-          bye
-          "
-        env:
-          FTP_SERVER: ftp.siforta.my.id
-          FTP_USERNAME: sifortam2@siforta.my.id
-          FTP_PASSWORD: Siforta12345#
+          FTP_PASSWORD: Siforta12345
