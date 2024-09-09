@@ -98,10 +98,10 @@ jobs:
           nc -zv ftp.siforta.my.id 21
 
       - name: Ping FTP Server
-        run: ping -c 4 ftp.siforta.my.id
+        run: ping -c 4 ftp.siforta.my.id 21
 
       - name: Traceroute to FTP Server
-        run: traceroute ftp.siforta.my.id
+        run: traceroute ftp.siforta.my.id 21
 
       - name: Test FTP connection with lftp
         run: |
