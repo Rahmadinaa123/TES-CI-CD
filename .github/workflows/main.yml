@@ -104,31 +104,13 @@ jobs:
           set ftp:ssl-allow no;
           open ftp.siforta.my.id;
           user sifortam2@siforta.my.id Siforta12345#;
-          mkdir -p /home/sifortam/siforta.my.id/siforta;
+          mkdir -p /siforta;
           bye
           "
         env:
           FTP_SERVER: ftp.siforta.my.id
           FTP_USERNAME: sifortam2@siforta.my.id
           FTP_PASSWORD: Siforta12345#
-
-      - name: Create directories on server using curl (alternative)
-        run: |
-          set -x
-          time curl -u siforta@siforta.my.id:Siforta12345# ftp://ftp.siforta.my.id/home/sifortam/siforta.my.id/siforta/ --create-dirs
-        env:
-          FTP_SERVER: ftp.siforta.my.id
-          FTP_USERNAME: sifortam2@siforta.my.id
-          FTP_PASSWORD: Siforta12345#
-
-      - name: Create siforta directory locally
-        run: mkdir -p ./siforta
-
-      - name: List current directory
-        run: ls -la
-
-      - name: List siforta directory
-        run: ls -la ./siforta
 
       - name: Deploy to server via FTP (debugging)
         run: |
