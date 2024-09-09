@@ -91,7 +91,7 @@ jobs:
           echo "FTP_USERNAME: $FTP_USERNAME"
         env:
           FTP_SERVER: ftp.siforta.my.id
-          FTP_USERNAME: siforta@siforta.my.id
+          FTP_USERNAME: sifortam2@siforta.my.id
 
       - name: Test FTP Connection
         run: |
@@ -103,13 +103,13 @@ jobs:
           time lftp -d -e "
           set ftp:ssl-allow no;
           open ftp.siforta.my.id;
-          user siforta@siforta.my.id Siforta12345#;
+          user sifortam2@siforta.my.id Siforta12345#;
           mkdir -p /home/sifortam/siforta.my.id/siforta;
           bye
           "
         env:
           FTP_SERVER: ftp.siforta.my.id
-          FTP_USERNAME: siforta@siforta.my.id
+          FTP_USERNAME: sifortam2@siforta.my.id
           FTP_PASSWORD: Siforta12345#
 
       - name: Create directories on server using curl (alternative)
@@ -118,7 +118,7 @@ jobs:
           time curl -u siforta@siforta.my.id:Siforta12345# ftp://ftp.siforta.my.id/home/sifortam/siforta.my.id/siforta/ --create-dirs
         env:
           FTP_SERVER: ftp.siforta.my.id
-          FTP_USERNAME: siforta@siforta.my.id
+          FTP_USERNAME: sifortam2@siforta.my.id
           FTP_PASSWORD: Siforta12345#
 
       - name: Create siforta directory locally
@@ -136,8 +136,8 @@ jobs:
           time lftp -d -e "
           set ftp:ssl-allow no;
           open ftp.siforta.my.id;
-          user siforta@siforta.my.id Siforta12345#;
-          mirror -R ./siforta /home/sifortam/siforta.my.id/siforta;
+          user sifortam2@siforta.my.id Siforta12345#;
+          mirror -R /home/sifortam/siforta.my.id/sifortam2;
           bye
           "
         env:
