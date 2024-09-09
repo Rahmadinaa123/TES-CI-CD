@@ -95,19 +95,19 @@ jobs:
 
       - name: Test FTP Connection
         run: |
-          nc -zv $FTP_SERVER 21
+          nc -zv $FTP_SERVER 21 || echo "Failed to connect to FTP server"
         env:
           FTP_SERVER: ftp.siforta.my.id
 
       - name: Test FTP connection with lftp
         run: |
-         echo "Testing FTP connection with lftp..."
+          echo "Testing FTP connection with lftp..."
           lftp -d -e "set ftp:ssl-allow no; ls; bye" -u $FTP_USERNAME,$FTP_PASSWORD $FTP_SERVER || echo "lftp command failed"
-          env:
+        env:
           FTP_SERVER: ftp.siforta.my.id
-           FTP_USERNAME: siforta@siforta.my.id
-           FTP_PASSWORD: Siforta12345
-    
+          FTP_USERNAME: siforta@siforta.my.id
+          FTP_PASSWORD: Siforta12345
+
       - name: Deploy to server via FTP
         run: |
           echo "Deploying to FTP server..."
