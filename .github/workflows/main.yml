@@ -53,7 +53,6 @@ jobs:
       - name: Check existing tables
         run: |
           mysql -h 127.0.0.1 -u root -proot -e "USE test_db; SHOW TABLES;"
-
       - name: Run Laravel migrations
         run: php artisan migrate --env=testing
         env:
@@ -96,7 +95,6 @@ jobs:
       - name: Test FTP Connection
         run: |
           nc -zv ftp.siforta.my.id 21
-
       - name: Create directories on server
         run: |
           lftp -e "
@@ -106,7 +104,6 @@ jobs:
           mkdir -p /home/sifortam/siforta.my.id/siforta;
           bye
           "
-
       - name: Create siforta directory locally
         run: mkdir -p ./siforta
 
