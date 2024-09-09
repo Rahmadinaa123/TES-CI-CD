@@ -73,7 +73,7 @@ jobs:
           DB_USERNAME: root
           DB_PASSWORD: root
 
-  deploy:
+    deploy:
     runs-on: ubuntu-latest
     needs: build
 
@@ -95,6 +95,12 @@ jobs:
       - name: Test FTP Connection
         run: |
           nc -zv ftp.siforta.my.id 21
+
+      - name: List current directory
+        run: ls -la
+
+      - name: List siforta directory
+        run: ls -la ./siforta
 
       - name: Deploy to server via FTP
         run: |
