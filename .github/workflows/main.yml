@@ -53,6 +53,7 @@ jobs:
       - name: Check existing tables
         run: |
           mysql -h 127.0.0.1 -u root -proot -e "USE test_db; SHOW TABLES;"
+
       - name: Run Laravel migrations
         run: php artisan migrate --env=testing
         env:
@@ -86,8 +87,8 @@ jobs:
 
       - name: Print environment variables for debugging
         run: |
-          echo "FTP_SERVER: ftp.siforta.my.id"
-          echo "FTP_USERNAME: siforta@siforta.my.id"
+          echo "FTP_SERVER: $FTP_SERVER"
+          echo "FTP_USERNAME: $FTP_USERNAME"
         env:
           FTP_SERVER: ftp.siforta.my.id
           FTP_USERNAME: siforta@siforta.my.id
@@ -95,15 +96,22 @@ jobs:
       - name: Test FTP Connection
         run: |
           nc -zv ftp.siforta.my.id 21
-      - name: Create directories on server
+
+      - name: Create directories on server (debugging)
         run: |
-          lftp -e "
+          set -x
+          time lftp -e "
           set ftp:ssl-allow no;
           open ftp.siforta.my.id;
           user siforta@siforta.my.id Siforta12345#;
           mkdir -p /home/sifortam/siforta.my.id/siforta;
           bye
           "
+        env:
+          FTP_SERVER: ftp.siforta.my.id
+          FTP_USERNAME: siforta@siforta.my.id
+          FTP_PASSWORD: Siforta12345#
+
       - name: Create siforta directory locally
         run: mkdir -p ./siforta
 
@@ -113,9 +121,10 @@ jobs:
       - name: List siforta directory
         run: ls -la ./siforta
 
-      - name: Deploy to server via FTP
+      - name: Deploy to server via FTP (debugging)
         run: |
-          lftp -e "
+          set -x
+          time lftp -e "
           set ftp:ssl-allow no;
           open ftp.siforta.my.id;
           user siforta@siforta.my.id Siforta12345#;
