@@ -107,4 +107,4 @@ jobs:
         env:
           FTP_SERVER: ftp.siforta.my.id
           FTP_USERNAME: sifortam2@siforta.my.id
-          FTP_PASSWORD: Siforta12345
+          FTP_PASSWORD: Siforta12345#
