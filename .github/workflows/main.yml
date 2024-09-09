@@ -101,7 +101,7 @@ jobs:
           set ftp:ssl-allow no
           open $FTP_SERVER
           user $FTP_USERNAME $FTP_PASSWORD
-          mirror --reverse --delete --verbose ./ /path/on/ftp/server
+          lftp -c "mirror -R /home/sifortam/siforta.my.id/siforta /path/to/remote/siforta"
           bye
           "
         env:
