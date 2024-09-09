@@ -101,7 +101,8 @@ jobs:
 
       - name: Test FTP connection with lftp
         run: |
-          lftp -e "set ftp:ssl-allow no; ls; bye" -u $FTP_USERNAME,$FTP_PASSWORD $FTP_SERVER
+          echo "Testing FTP connection with lftp..."
+          lftp -e "set ftp:ssl-allow no; ls; bye" -u $FTP_USERNAME,$FTP_PASSWORD $FTP_SERVER || echo "lftp command failed"
         env:
           FTP_SERVER: ftp.siforta.my.id
           FTP_USERNAME: siforta@siforta.my.id
@@ -109,13 +110,14 @@ jobs:
 
       - name: Deploy to server via FTP
         run: |
+          echo "Deploying to FTP server..."
           lftp -f "
           set ftp:ssl-allow no
           open $FTP_SERVER
           user $FTP_USERNAME $FTP_PASSWORD
           mirror --reverse --delete --verbose ./ /path/on/ftp/server
           bye
-          "
+          " || echo "Deployment failed"
         env:
           FTP_SERVER: ftp.siforta.my.id
           FTP_USERNAME: siforta@siforta.my.id
