@@ -113,6 +113,8 @@ jobs:
         run: |
           lftp -e "ls; bye" -u siforta@siforta.my.id,Siforta12345 ftp.siforta.my.id
 
+          lftp -u siforta@siforta.my.id,Siforta12345 ftp.siforta.my.id
+
       - name: Deploy to server via FTP #tess
         run: |
           lftp -f "
