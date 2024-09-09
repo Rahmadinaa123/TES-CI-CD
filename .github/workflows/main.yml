@@ -107,7 +107,7 @@ jobs:
           bye
           "
 
-      - name: Create siforta directory
+      - name: Create siforta directory locally
         run: mkdir -p ./siforta
 
       - name: List current directory
