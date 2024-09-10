@@ -26,6 +26,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Install lftp
+        run: sudo apt-get install -y lftp
+
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -41,7 +44,7 @@ jobs:
           php artisan config:cache
         env:
           DB_CONNECTION: mysql
-          DB_HOST: 127.0.0.1       # Placeholder: Ganti dengan host database Anda
+          DB_HOST: 127.0.0.1
           DB_PORT: 3306
           DB_DATABASE: test_db
           DB_USERNAME: root
@@ -54,7 +57,7 @@ jobs:
         run: php artisan migrate --env=testing
         env:
           DB_CONNECTION: mysql
-          DB_HOST: 127.0.0.1       # Placeholder: Ganti dengan host database Anda
+          DB_HOST: 127.0.0.1
           DB_PORT: 3306
           DB_DATABASE: test_db
           DB_USERNAME: root
@@ -64,7 +67,7 @@ jobs:
         run: php artisan test --env=testing
         env:
           DB_CONNECTION: mysql
-          DB_HOST: 127.0.0.1       # Placeholder: Ganti dengan host database Anda
+          DB_HOST: 127.0.0.1
           DB_PORT: 3306
           DB_DATABASE: test_db
           DB_USERNAME: root
@@ -78,30 +81,30 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.1'
+      - name: Install lftp
+        run: sudo apt-get install -y lftp
 
-      - name: Install Composer dependencies
-        run: composer install --prefer-dist --no-interaction --no-scripts --no-progress
-
-      - name: Deploy to server via SSH
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }} # Placeholder: Tambahkan private key SSH ke GitHub Secrets
-          SSH_HOST: ${{ secrets.SSH_HOST }}              # Placeholder: Tambahkan host server ke GitHub Secrets
-          SSH_USER: ${{ secrets.SSH_USER }}              # Placeholder: Tambahkan username SSH ke GitHub Secrets
+      - name: Print environment variables for debugging
         run: |
-          mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          
-          ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST << 'EOF'
-            cd /path/to/your/project      # Placeholder: Ganti dengan path sebenarnya ke direktori proyek di server
-            git pull origin main
-            composer install --no-dev --optimize-autoloader
-            php artisan migrate --force
-            php artisan cache:clear
-            php artisan config:cache
-            php artisan route:cache
-          EOF
+          echo "FTP_SERVER: ftp.siforta.my.id"
+          echo "FTP_USERNAME: sifortam2@siforta.my.id"
+        env:
+          FTP_SERVER: ftp.siforta.my.id
+          FTP_USERNAME: sifortam2@siforta.my.id
+
+      - name: Test FTP Connection
+        run: |
+          nc -zv ftp.siforta.my.id 21
+      - name: Deploy to server via FTP #tess
+        run: |
+          lftp -f "
+          set ftp:ssl-allow no
+          open $FTP_SERVER
+          user $FTP_USERNAME $FTP_PASSWORD
+          mirror --reverse --delete --verbose ./ /path/on/ftp/server
+          bye
+          "
+        env:
+          FTP_SERVER: ftp.siforta.my.id
+          FTP_USERNAME: sifortam2@siforta.my.id
+          FTP_PASSWORD: Siforta12345#
