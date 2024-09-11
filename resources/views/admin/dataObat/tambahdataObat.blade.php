@@ -225,7 +225,7 @@
                             <div class="card mt-4" style="width: 800px">
                                 <div class="card-body">
                                     <h5 class="card-title text-center">Tambah Data
-                                        Obat obatan</h5>
+                                        Obat apotek</h5>
                                     <form action="{{ route('admin.postObat') }}" method="POST"
                                         enctype="multipart/form-data">
                                         @csrf
